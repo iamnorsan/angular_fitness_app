@@ -1,6 +1,6 @@
 <section class="sign-up-form">
   <form fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center" #f='ngForm' (ngSubmit)="onSubmit(f)">
-    <mat-form-field >
+    <mat-form-field>
       <mat-label>Email</mat-label>
       <input type="email"
              matInput
@@ -33,7 +33,7 @@
         The password is required and it should be minimum 6 symbols.
       </mat-error>
     </mat-form-field>
-    <mat-form-field >
+    <mat-form-field>
       <mat-label>Custom calendar header</mat-label>
       <input matInput [matDatepicker]="picker" [max]="maxDate" ngModel name="birthdate" required>
       <mat-hint>MM/DD/YYYY</mat-hint>
@@ -41,12 +41,14 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-checkbox ngModel name="agree" required>Agree to Terms and Conditions</mat-checkbox>
-    <button type="submit"
+    <button *ngIf="!isLoading"
+            type="submit"
             mat-raised-button
             color="primary"
             [disabled]="f.invalid">
       Signup
     </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
 

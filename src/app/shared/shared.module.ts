@@ -18,12 +18,20 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+
+    //material modules
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -42,9 +50,16 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
   exports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+
+    ///material modules
     MatButtonModule,
     MatCheckboxModule,
     MatDatepickerModule,
@@ -63,7 +78,8 @@ import {MatPaginatorModule} from "@angular/material/paginator";
     MatSelectModule,
     MatDialogModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ]
 })
 export class SharedModule { }

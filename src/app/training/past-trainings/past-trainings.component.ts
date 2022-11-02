@@ -4,6 +4,7 @@ import {MatTableDataSource} from "@angular/material/table";
 import {Exercise} from "../exercise.model";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-past-trainings',
@@ -13,6 +14,7 @@ import {MatPaginator} from "@angular/material/paginator";
 export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
   dataSource = new MatTableDataSource<Exercise>();
+  private exChangedSubscription: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -21,7 +23,11 @@ export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   ngOnInit(): void {
-    this.dataSource.data = this.trainingService.getCompletedOrCanceledExercises();
+   this.exChangedSubscription = this.trainingService.finishedExercisesChanged.subscribe((exercises: Exercise[]) => {
+      this.dataSource.data = exercises;
+      console.log(this.dataSource.data)
+    });
+    this.trainingService.fetchCompletedOrCanceledExercises();
   }
 
   ngAfterViewInit() {
@@ -29,12 +35,12 @@ export class PastTrainingsComponent implements OnInit, AfterViewInit, OnDestroy 
     this.dataSource.paginator = this.paginator;
   }
 
-  doFilter(filterValue: string){
+  doFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   ngOnDestroy() {
-
+    this.exChangedSubscription?.unsubscribe();
   }
 
 }
